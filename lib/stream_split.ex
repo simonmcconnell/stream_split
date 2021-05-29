@@ -120,8 +120,10 @@ defmodule StreamSplit do
   """
   @spec pop(Enumerable.t()) :: {any, Enumerable.t()}
   def pop(enum) do
-    {[h], rest} = take_and_drop(enum, 1)
-    {h, rest}
+    case take_and_drop(enum, 1) do
+        {[], []} -> {[], []}
+        {[h], rest} -> {h, rest}
+    end
   end
 end
 
